@@ -20,12 +20,11 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require 'rexml/document'
+require 'nokogiri'
 require 'appscript'
 require 'curb'
 include Curl
 include Appscript
-include REXML  # so that we don't have to prefix everything with REXML::...
 
 selected = app('iTunes').selection.get
 
@@ -55,9 +54,9 @@ for a in selected
 
       c = Curl::Easy.perform(url)      
       pagecontent = c.body_str.gsub!(/&/, 'And' )
-      doc = Document.new c.body_str
+      doc = Nokogiri::HTML c.body_str
  
-      ln = doc.root_node.find_first_recursive {|node| node.name == "div" and node.attributes["class"] == "lyricbox"}
+      ln = doc.css('div.lyricbox').first
       
       if (ln == nil)
         puts "CANNOT FIND any lyrics for " + theartist + " - " + thesong
