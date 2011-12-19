@@ -40,7 +40,7 @@ for a in selected
       theartist = a.artist.get
       thesong = a.name.get
       
-      url = "http://lyricwiki.org/"
+      url = "http://lyrics.wikia.com/"
       song = theartist.downcase
       song += ":"
       song += thesong.downcase
