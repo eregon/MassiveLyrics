@@ -32,6 +32,8 @@ updated = 0
 not_found = 0
 already_there = 0
 
+BadLyrics = Class.new(StandardError)
+
 selected.each do |a|
   lyrics, artist, title = [:lyrics, :artist, :name].map { |e| a.send(e).get }
   if lyrics.empty? and !artist.empty? and !title.empty?
@@ -60,11 +62,13 @@ selected.each do |a|
         lyr.strip!
         lyr.gsub!(/\s*Send .+? Ringtone to your Cell\s*/m, '')
 
+        raise BadLyrics, 'not complete' if lyr.include? '[I want to edit metadata]'
+
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for #{artist} - #{title}"
         updated += 1
-      rescue OpenURI::HTTPError
-        puts "CANNOT FIND any lyrics for #{artist} - #{title} (#{$!})"
+      rescue OpenURI::HTTPError, BadLyrics
+        puts "CANNOT FIND any lyrics for #{artist} - #{title} (#{$!.inspect})"
         not_found += 1
       end
   else
