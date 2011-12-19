@@ -23,10 +23,8 @@
 require 'nokogiri'
 require 'appscript'
 require 'curb'
-include Curl
-include Appscript
 
-selected = app('iTunes').selection.get
+selected = Appscript.app('iTunes').selection.get
 
 updated = 0
 not_found = 0
