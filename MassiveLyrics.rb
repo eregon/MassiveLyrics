@@ -33,7 +33,7 @@ not_found = 0
 already_there = 0
 
 for a in selected
-  if (a.lyrics.get.eql?("") and !a.artist.get.eql?("") and !a.name.get.eql?(""))
+  if a.lyrics.get.empty? and !a.artist.get.empty? and !a.name.get.empty?
 
       theartist = a.artist.get
       thesong = a.name.get
@@ -58,7 +58,7 @@ for a in selected
  
       ln = doc.css('div.lyricbox').first
       
-      if (ln == nil)
+      if ln == nil
         puts "CANNOT FIND any lyrics for " + theartist + " - " + thesong
         not_found += 1
       else
