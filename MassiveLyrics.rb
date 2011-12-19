@@ -46,6 +46,7 @@ selected.each do |a|
       puts song if $VERBOSE
 
       url = LYRICS_WIKI + song
+      url = ARGV.first if $VERBOSE and ARGV.size == 1 and selected.size == 1
 
       doc = Nokogiri::HTML open url
 
