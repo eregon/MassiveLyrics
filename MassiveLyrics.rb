@@ -60,7 +60,7 @@ for a in selected
       
       if (ln == nil)
         puts "CANNOT FIND any lyrics for " + theartist + " - " + thesong
-        not_found = not_found + 1
+        not_found += 1
       else
         lyr = ln.to_s
                  
