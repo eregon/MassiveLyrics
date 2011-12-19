@@ -49,12 +49,7 @@ for a in selected
 
       doc = Nokogiri::HTML open url
 
-      ln = doc.css('div.lyricbox').first
-
-      if ln == nil
-        puts "CANNOT FIND any lyrics for #{artist} - #{title}"
-        not_found += 1
-      else
+      if ln = doc.css('div.lyricbox').first
         lyr = ln.to_s
 
         lyr.gsub!(/<\/*\s*br\s*\/*>/, "\n") #STRIP brs
@@ -67,6 +62,9 @@ for a in selected
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for #{artist} - #{title}"
         updated += 1
+      else
+        puts "CANNOT FIND any lyrics for #{artist} - #{title}"
+        not_found += 1
       end
   else
     already_there += 1
