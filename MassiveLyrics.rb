@@ -37,10 +37,10 @@ for a in selected
       song = "#{artist.downcase}:#{title.downcase}"
 
       #song.gsub!(/^[a-z]|\s+[a-z']/) { |letter| letter.upcase }
-      song.gsub!(/\'\s/,' ')
-      song.gsub!(/\s+/,'_')
+      song.gsub!(/\'\s/, ' ')
+      song.gsub!(/\s+/, '_')
       song.gsub!(/^[a-z]|_+[a-z]|[:\(\)\[\]][a-z]|/) { |letter| letter.upcase }
-      song.gsub!(/&/, 'And' )
+      song.gsub!(/&/, 'And')
       song.gsub!(/\?/, '%3F')
 
       puts song
@@ -48,7 +48,7 @@ for a in selected
       url += song
 
       c = Curl::Easy.perform(url)
-      pagecontent = c.body_str.gsub!(/&/, 'And' )
+      pagecontent = c.body_str.gsub!(/&/, 'And')
       doc = Nokogiri::HTML c.body_str
 
       ln = doc.css('div.lyricbox').first
