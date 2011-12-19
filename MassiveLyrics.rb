@@ -52,7 +52,7 @@ for a in selected
       ln = doc.css('div.lyricbox').first
 
       if ln == nil
-        puts "CANNOT FIND any lyrics for " + artist + " - " + title
+        puts "CANNOT FIND any lyrics for #{artist} - #{title}"
         not_found += 1
       else
         lyr = ln.to_s
@@ -65,7 +65,7 @@ for a in selected
         lyr.gsub!(/\s*Send .+? Ringtone to your Cell\s*/m, '')
 
         a.lyrics.set(lyr)
-        puts "UPDATED lyrics for " + artist + " - " + title
+        puts "UPDATED lyrics for #{artist} - #{title}"
         updated += 1
       end
   else
@@ -74,7 +74,7 @@ for a in selected
 end
 
 puts "==============================================================="
-puts "lyrics already present for " + already_there.to_s  + " song(s)"
-puts "lyrics not found for " + not_found.to_s + " song(s)"
-puts "updated " + updated.to_s + " song(s)"
+puts "lyrics already present for #{already_there} song(s)"
+puts "lyrics not found for #{not_found} song(s)"
+puts "updated #{updated} song(s)"
 puts "==============================================================="
