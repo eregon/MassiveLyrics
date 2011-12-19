@@ -22,7 +22,7 @@
 
 require 'nokogiri'
 require 'appscript'
-require 'curb'
+require 'open-uri'
 
 selected = Appscript.app('iTunes').selection.get
 
@@ -47,9 +47,7 @@ for a in selected
 
       url += song
 
-      c = Curl::Easy.perform(url)
-      pagecontent = c.body_str.gsub!(/&/, 'And')
-      doc = Nokogiri::HTML c.body_str
+      doc = Nokogiri::HTML open url
 
       ln = doc.css('div.lyricbox').first
 
