@@ -62,7 +62,7 @@ selected.each do |a|
         lyr.strip!
         lyr.gsub!(/\s*Send .+? Ringtone to your Cell\s*/m, '')
 
-        raise BadLyrics, 'not complete' if lyr.include? '[I want to edit metadata]'
+        raise BadLyrics, 'not complete' if lyr.include? 'Unfortunately, we are not licensed to display the full lyrics for this song at the moment.'
 
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for #{artist} - #{title}"
