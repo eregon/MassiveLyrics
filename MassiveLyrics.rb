@@ -21,7 +21,6 @@
 # THE SOFTWARE.
 
 require "rexml/document"
-require "rubygems"
 require "appscript"
 require "curb"
 include Curl
