@@ -1,17 +1,17 @@
 # The MIT License
-# 
-# Copyright (c) 2009 Davide Candiloro 
-# 
+#
+# Copyright (c) 2009 Davide Candiloro
+#
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
 # in the Software without restriction, including without limitation the rights
 # to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
-# 
+#
 # The above copyright notice and this permission notice shall be included in
 # all copies or substantial portions of the Software.
-# 
+#
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
 # FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
@@ -41,23 +41,23 @@ for a in selected
       song.gsub!(/\s+/,'_')
       song.gsub!(/^[a-z]|_+[a-z]|[:\(\)\[\]][a-z]|/) { |letter| letter.upcase }
       song.gsub!(/&/, 'And' )
-      
+
       puts song
- 
+
       url += song
 
-      c = Curl::Easy.perform(url)      
+      c = Curl::Easy.perform(url)
       pagecontent = c.body_str.gsub!(/&/, 'And' )
       doc = Nokogiri::HTML c.body_str
- 
+
       ln = doc.css('div.lyricbox').first
-      
+
       if ln == nil
         puts "CANNOT FIND any lyrics for " + artist + " - " + title
         not_found += 1
       else
         lyr = ln.to_s
-                 
+
         lyr.gsub!(/<\/*\s*br\s*\/*>/, "\n") #STRIP brs
         lyr.gsub!(/<\/*\s*p\s*\/*>/, "\n") #STRIP p
         lyr.gsub!(/\<\s*(.*?)(\s*\>)/m, "") #STRIP any tag
@@ -69,7 +69,7 @@ for a in selected
         puts "UPDATED lyrics for " + artist + " - " + title
         updated += 1
       end
-  else 
+  else
     already_there += 1
   end
 end
