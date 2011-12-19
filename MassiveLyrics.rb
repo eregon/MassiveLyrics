@@ -34,9 +34,8 @@ for a in selected
   lyrics, artist, title = [:lyrics, :artist, :name].map { |e| a.send(e).get }
   if lyrics.empty? and !artist.empty? and !title.empty?
       url = "http://lyrics.wikia.com/"
-      song = artist.downcase
-      song += ":"
-      song += title.downcase
+      song = "#{artist.downcase}:#{title.downcase}"
+
       #song.gsub!(/^[a-z]|\s+[a-z']/) { |letter| letter.upcase }
       song.gsub!(/\'\s/,' ')
       song.gsub!(/\s+/,'_')
