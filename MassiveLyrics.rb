@@ -43,7 +43,7 @@ selected.each do |a|
       song.gsub!(/&/, 'And')
       song.gsub!(/\?/, '%3F')
 
-      puts song
+      puts song if $VERBOSE
 
       url = LYRICS_WIKI + song
 
