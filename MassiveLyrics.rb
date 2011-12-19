@@ -48,9 +48,9 @@ selected.each do |a|
       url = LYRICS_WIKI + song
       url = ARGV.first if $VERBOSE and ARGV.size == 1 and selected.size == 1
 
-      doc = Nokogiri::HTML open url
-
-      if ln = doc.css('div.lyricbox').first
+      begin
+        doc = Nokogiri::HTML open url
+        ln = doc.css('div.lyricbox').first
         lyr = ln.to_s
 
         lyr.gsub!(/<\/*\s*br\s*\/*>/, "\n") #STRIP brs
@@ -63,8 +63,8 @@ selected.each do |a|
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for #{artist} - #{title}"
         updated += 1
-      else
-        puts "CANNOT FIND any lyrics for #{artist} - #{title}"
+      rescue OpenURI::HTTPError
+        puts "CANNOT FIND any lyrics for #{artist} - #{title} (#{$!})"
         not_found += 1
       end
   else
