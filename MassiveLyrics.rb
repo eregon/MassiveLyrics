@@ -20,9 +20,9 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 # THE SOFTWARE.
 
-require "rexml/document"
-require "appscript"
-require "curb"
+require 'rexml/document'
+require 'appscript'
+require 'curb'
 include Curl
 include Appscript
 include REXML  # so that we don't have to prefix everything with REXML::...
