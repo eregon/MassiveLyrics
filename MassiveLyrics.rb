@@ -33,15 +33,12 @@ not_found = 0
 already_there = 0
 
 for a in selected
-  if a.lyrics.get.empty? and !a.artist.get.empty? and !a.name.get.empty?
-
-      theartist = a.artist.get
-      thesong = a.name.get
-      
+  lyrics, artist, title = [:lyrics, :artist, :name].map { |e| a.send(e).get }
+  if lyrics.empty? and !artist.empty? and !title.empty?
       url = "http://lyrics.wikia.com/"
-      song = theartist.downcase
+      song = artist.downcase
       song += ":"
-      song += thesong.downcase
+      song += title.downcase
       #song.gsub!(/^[a-z]|\s+[a-z']/) { |letter| letter.upcase }
       song.gsub!(/\'\s/,' ')
       song.gsub!(/\s+/,'_')
@@ -59,7 +56,7 @@ for a in selected
       ln = doc.css('div.lyricbox').first
       
       if ln == nil
-        puts "CANNOT FIND any lyrics for " + theartist + " - " + thesong
+        puts "CANNOT FIND any lyrics for " + artist + " - " + title
         not_found += 1
       else
         lyr = ln.to_s
@@ -70,7 +67,7 @@ for a in selected
         lyr.gsub!(/\n+\Z/, "\n") #STRIP final returns
         
         a.lyrics.set(lyr)
-        puts "UPDATED lyrics for " + theartist + " - " + thesong
+        puts "UPDATED lyrics for " + artist + " - " + title
         updated += 1
       end
   else 
