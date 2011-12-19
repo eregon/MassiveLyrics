@@ -24,6 +24,8 @@ require 'nokogiri'
 require 'appscript'
 require 'open-uri'
 
+LYRICS_WIKI = 'http://lyrics.wikia.com/'
+
 selected = Appscript.app('iTunes').selection.get
 
 updated = 0
@@ -33,9 +35,7 @@ already_there = 0
 for a in selected
   lyrics, artist, title = [:lyrics, :artist, :name].map { |e| a.send(e).get }
   if lyrics.empty? and !artist.empty? and !title.empty?
-      url = "http://lyrics.wikia.com/"
       song = "#{artist.downcase}:#{title.downcase}"
-
       #song.gsub!(/^[a-z]|\s+[a-z']/) { |letter| letter.upcase }
       song.gsub!(/\'\s/, ' ')
       song.gsub!(/\s+/, '_')
@@ -45,7 +45,7 @@ for a in selected
 
       puts song
 
-      url += song
+      url = LYRICS_WIKI + song
 
       doc = Nokogiri::HTML open url
 
