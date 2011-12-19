@@ -61,8 +61,10 @@ for a in selected
         lyr.gsub!(/<\/*\s*br\s*\/*>/, "\n") #STRIP brs
         lyr.gsub!(/<\/*\s*p\s*\/*>/, "\n") #STRIP p
         lyr.gsub!(/\<\s*(.*?)(\s*\>)/m, "") #STRIP any tag
-        lyr.gsub!(/\n+\Z/, "\n") #STRIP final returns
-        
+        lyr.gsub!(/And#(\d+);/) { |n| $1.to_i.chr(Encoding::UTF_8) }
+        lyr.strip!
+        lyr.gsub!(/\s*Send .+? Ringtone to your Cell\s*/m, '')
+
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for " + artist + " - " + title
         updated += 1
