@@ -30,6 +30,7 @@ selected = Appscript.app('iTunes').selection.get
 
 updated = 0
 not_found = 0
+bad = 0
 already_there = 0
 
 BadLyrics = Class.new(StandardError)
@@ -68,7 +69,10 @@ selected.each do |a|
         a.lyrics.set(lyr)
         puts "UPDATED lyrics for #{artist} - #{title}"
         updated += 1
-      rescue OpenURI::HTTPError, BadLyrics
+      rescue BadLyrics
+        puts "BAD lyrics for #{artist} - #{title} (#{$!.inspect})"
+        bad += 1
+      rescue OpenURI::HTTPError
         puts "CANNOT FIND lyrics for #{artist} - #{title} (#{$!.inspect})"
         not_found += 1
       end
@@ -80,5 +84,6 @@ end
 puts "==============================================================="
 puts "lyrics already present for #{already_there} song(s)"
 puts "lyrics not found for #{not_found} song(s)"
+puts "bad lyrics found for #{bad} song(s)"
 puts "updated #{updated} song(s)"
 puts "==============================================================="
