@@ -32,7 +32,7 @@ updated = 0
 not_found = 0
 already_there = 0
 
-for a in selected
+selected.each do |a|
   lyrics, artist, title = [:lyrics, :artist, :name].map { |e| a.send(e).get }
   if lyrics.empty? and !artist.empty? and !title.empty?
       song = "#{artist.downcase}:#{title.downcase}"
