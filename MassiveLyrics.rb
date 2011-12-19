@@ -41,6 +41,7 @@ for a in selected
       song.gsub!(/\s+/,'_')
       song.gsub!(/^[a-z]|_+[a-z]|[:\(\)\[\]][a-z]|/) { |letter| letter.upcase }
       song.gsub!(/&/, 'And' )
+      song.gsub!(/\?/, '%3F')
 
       puts song
 
