@@ -21,7 +21,7 @@
 # THE SOFTWARE.
 
 require 'nokogiri'
-require 'appscript'
+require 'appscript' # rb-appscript
 require 'open-uri'
 
 LYRICS_WIKI = 'http://lyrics.wikia.com/'
